@@ -34,3 +34,6 @@ Thumbs.db
 
 # dotenv (if using any secrets)
 .env
+
+# screenshots if tests failed
+screenshots/
