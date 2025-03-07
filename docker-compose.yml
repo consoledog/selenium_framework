@@ -1,0 +1,25 @@
+services:
+  selenium-framework:
+    shm_size: 2g
+    build:
+      context: .
+    volumes:
+      - .:/app
+      - ./reports:/app/reports
+      - ./allure-results:/app/allure-results
+      - ./allure-report:/app/allure-report
+    ports:
+      - "4444:4444"
+      - "7900:7900"
+    environment:
+      - SE_NODE_SESSION_TIMEOUT=60
+      - SE_NODE_MAX_SESSIONS=1
+    command: >
+      /bin/sh -c "
+      pytest
+      --html=reports/report.html
+      --self-contained-html
+      --alluredir=allure-results
+      &&
+      allure generate allure-results -o allure-report --clean
+      "

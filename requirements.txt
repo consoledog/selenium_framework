@@ -1,0 +1,7 @@
+selenium
+pytest
+pytest-html
+pytest-xdist
+allure-pytest
+pyyaml
+pytest-rerunfailures
