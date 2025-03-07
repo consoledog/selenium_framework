@@ -6,7 +6,7 @@ class LoginPage(BasePage):
     USERNAME = (By.ID, "loginusername")
     PASSWORD = (By.ID, "loginpassword")
     SUBMIT = (By.XPATH, "//button[contains(text(),'Log in')]")
-
+    WELCOME = (By.ID, "nameofuser")
 
     def login(self, username, password):
         self.click(self.LOGIN_BUTTON)
