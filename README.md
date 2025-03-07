@@ -11,9 +11,9 @@
    ```bash
    pip install -r requirements.txt
    ```
-5. Run tests:
+5. Run tests by running bash script:
    ```bash
-   pytest --alluredir=allure-results
+      ./run_tests.sh  
    ```
 6. Generate report:
    ```bash

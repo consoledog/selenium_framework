@@ -18,6 +18,7 @@ venv/
 # Allure reports
 allure-results/
 allure-report/
+all/
 
 # HTML test reports
 reports/
