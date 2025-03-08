@@ -1,11 +1,11 @@
 import logging
+import allure
 
-def get_logger(name):
-    logger = logging.getLogger(name)
-    if not logger.handlers:
-        handler = logging.FileHandler("logs/framework.log")
-        formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
-        handler.setFormatter(formatter)
-        logger.addHandler(handler)
-        logger.setLevel(logging.INFO)
-    return logger
+
+# Configure logging
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+logger = logging.getLogger(__name__)
+
+def allure_log(message):
+    logger.info(message)
+    allure.attach(message, name="Log", attachment_type=allure.attachment_type.TEXT)

@@ -5,3 +5,6 @@ pytest-xdist
 allure-pytest
 pyyaml
 pytest-rerunfailures
+faker
+requests 
+pytest-httpx

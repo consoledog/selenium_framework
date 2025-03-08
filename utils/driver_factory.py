@@ -1,10 +1,11 @@
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.options import Options as ChromeOptions
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
 import tempfile
 
 def get_driver(browser_name="chrome"):
     if browser_name == "chrome":
-        options = Options()
+        options = ChromeOptions()
         options.add_argument("--headless=new")
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
@@ -12,10 +13,21 @@ def get_driver(browser_name="chrome"):
         options.add_argument("--disable-software-rasterizer")
         options.add_argument("--window-size=1920,1080")
         options.add_argument(f"--user-data-dir={tempfile.mkdtemp()}")
-        return webdriver.Chrome(options=options)
+        driver = webdriver.Chrome(options=options)
+
     elif browser_name == "firefox":
-        driver = webdriver.Firefox()
+        options = FirefoxOptions()
+        options.add_argument("--headless")
+        options.add_argument("--width=1920")
+        options.add_argument("--height=1080")
+        options.set_preference("browser.download.folderList", 2)
+        options.set_preference("browser.download.dir", tempfile.mkdtemp())
+        options.set_preference("browser.helperApps.neverAsk.saveToDisk", "application/pdf")
+
+        driver = webdriver.Firefox(options=options)
+
     else:
         raise Exception(f"Browser '{browser_name}' is not supported")
+
     driver.maximize_window()
     return driver
