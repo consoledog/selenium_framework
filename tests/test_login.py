@@ -33,7 +33,7 @@ def test_invalid_password_login(driver, config, credentials):
     driver.get(config["base_url"])
     allure_log("Navigated to login page")
 
-    login_page = LoginPage(driver)
+    login_page = LoginPage(driver)  
     login_page.login(username, password)
     allure_log("Clicked Login Button")
     
