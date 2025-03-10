@@ -8,11 +8,12 @@ import pytest
 test_data_valid = load_test_data('test_data/login_test_data_valid.json')
 test_data_invalid = load_test_data('test_data/login_test_data_invalid.json')
 
+#Testing login with valid credentials
 @pytest.mark.parametrize("credentials", test_data_valid)
 def test_valid_login(driver, config, credentials):
     username = credentials["username"]
     password = credentials["password"]
-    allure_log(f"🚀 Test Started for {username} and {password}")
+    allure_log(f"Test Started for {username} and {password}")
 
     driver.get(config["base_url"])
     allure_log("Navigated to login page")
@@ -24,11 +25,13 @@ def test_valid_login(driver, config, credentials):
     allure_log("Check for the Welcome text")
     assert login_page.get_text(login_page.WELCOME) == f"Welcome {username}"
 
+#Testing login with invalid credentials
 @pytest.mark.parametrize("credentials", test_data_invalid)
+#@pytest.mark.skip(reason="This test is currently inactive")
 def test_invalid_password_login(driver, config, credentials):
     username = credentials["username"]
     password = credentials["password"]
-    allure_log(f"🚀 Test Started for {username} and {password}")
+    allure_log(f"Test Started for {username} and {password}")
 
     driver.get(config["base_url"])
     allure_log("Navigated to login page")

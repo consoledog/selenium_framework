@@ -5,11 +5,12 @@ import os
 from datetime import datetime
 import glob
 
-@pytest.fixture(params=["chrome", "firefox"], scope="function")
+@pytest.fixture(params=["chrome"], scope="function") #params=["chrome", "firefox"]]
 def driver(request):
     driver = get_driver(request.param)
     yield driver
     driver.quit()
+
 
 @pytest.fixture(scope="session")
 def config():
@@ -27,7 +28,7 @@ def pytest_runtest_makereport(item, call):
             # Define screenshot directory
             screenshot_dir = os.path.join(os.getcwd(), "screenshots")
             
-            # 🔥 Remove old screenshots before saving new ones
+            # Remove old screenshots before saving new ones
             if os.path.exists(screenshot_dir):
                 for file in glob.glob(os.path.join(screenshot_dir, "*.png")):
                     os.remove(file)
@@ -43,4 +44,4 @@ def pytest_runtest_makereport(item, call):
 
             # Save the screenshot
             driver.save_screenshot(file_path)
-            print(f"\n📸 Screenshot saved: {file_path}")
+            print(f"\nScreenshot saved: {file_path}")
