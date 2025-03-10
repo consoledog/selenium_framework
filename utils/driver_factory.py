@@ -20,9 +20,6 @@ def get_driver(browser_name="chrome"):
         options.add_argument("--headless")
         options.add_argument("--width=1920")
         options.add_argument("--height=1080")
-        options.set_preference("browser.download.folderList", 2)
-        options.set_preference("browser.download.dir", tempfile.mkdtemp())
-        options.set_preference("browser.helperApps.neverAsk.saveToDisk", "application/pdf")
 
         driver = webdriver.Firefox(options=options)
 

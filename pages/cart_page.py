@@ -10,6 +10,9 @@ class CartPage(BasePage):
     PLACE_ORDER = (By.XPATH, "//button[contains(text(),'Place Order')]")
 
     def get_all_product_titles(self) -> List[str]:
+
+        list_of_products: List[str] = []
+        
         # Wait until at least one row is present
         WebDriverWait(self.driver, 10).until(
             EC.presence_of_element_located(self.PRODUCT_ROWS)
@@ -18,8 +21,6 @@ class CartPage(BasePage):
         # Find all product rows dynamically
         product_list_element = self.driver.find_element(*self.PRODUCT_TABLE)
         products = product_list_element.find_elements(*self.PRODUCT_ROWS)
-
-        list_of_products: List[str] = []
 
         for product in products:
             try:

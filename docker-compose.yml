@@ -1,6 +1,8 @@
 services:
   selenium-framework:
     shm_size: 2g
+    image: selenium/standalone-chrome
+    platform: linux/amd64
     build:
       context: .
     volumes:
@@ -9,14 +11,12 @@ services:
       - ./allure-results:/app/allure-results
       - ./allure-report:/app/allure-report
     ports:
-      - "4444:4444"
       - "7900:7900"
     environment:
       - SE_NODE_SESSION_TIMEOUT=60
-      - SE_NODE_MAX_SESSIONS=1
     command: >
       /bin/sh -c "
-      pytest
+      pytest -n 4
       --html=reports/report.html
       --self-contained-html
       --alluredir=allure-results

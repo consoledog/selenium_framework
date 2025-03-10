@@ -27,7 +27,6 @@ def test_valid_login(driver, config, credentials):
 
 #Testing login with invalid credentials
 @pytest.mark.parametrize("credentials", test_data_invalid)
-#@pytest.mark.skip(reason="This test is currently inactive")
 def test_invalid_password_login(driver, config, credentials):
     username = credentials["username"]
     password = credentials["password"]

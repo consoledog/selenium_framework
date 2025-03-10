@@ -17,6 +17,9 @@ def config():
     with open("config/config.yaml") as file:
         return yaml.safe_load(file)
 
+# Function to make screenshot on test fail
+#item: The test case currently being executed.
+#call: Information about the test execution, including its result.
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
 def pytest_runtest_makereport(item, call):
     outcome = yield

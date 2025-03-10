@@ -11,9 +11,11 @@ class HomePage(BasePage):
     PRODUCT_LIST = (By.ID, "tbodyid")  # The container
     PRODUCT_ITEM = (By.CSS_SELECTOR, "div.col-lg-4.col-md-6.mb-4.card")# Single product item
 
-    def get_all_products(self):
-
+    #Get the list of products -> List[Product]
+    def get_all_products(self) -> List[Product]:
+        list_of_products: List[Product] = []
         allure_log("get_all_products")
+
         # Ensure at least one product is visible before proceeding
         WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located(self.PRODUCT_ITEM)
@@ -26,7 +28,6 @@ class HomePage(BasePage):
             allure_log("No products found after waiting")
             return []
 
-        list_of_products: List[Product] = []
         for product in products:
             title = product.find_element(By.CSS_SELECTOR, "h4.card-title a").text
             price = product.find_element(By.TAG_NAME, "h5").text
@@ -36,6 +37,7 @@ class HomePage(BasePage):
 
         return list_of_products
     
+    #Click on a desired product
     def click_on_product(self, product_title: str):
         
         allure_log("click_on_product")
@@ -50,6 +52,7 @@ class HomePage(BasePage):
         if not products:
             allure_log("No products found after waiting")
         
+        #Find the product title, and click on it
         for product in products:
             title = product.find_element(By.CSS_SELECTOR, "h4.card-title a").text
             if(title.lower() == product_title.lower()):
