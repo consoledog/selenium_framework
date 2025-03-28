@@ -14,8 +14,8 @@ test_data_products = load_test_data('test_data/home_page_test_products.json')
 cart_data_products = load_test_data('test_data/buy_products_test.json')
 
 # Testing how many products are on the homepage
-#@pytest.mark.parametrize("test_case", test_data_products)
-@pytest.mark.skip(reason="This test is currently inactive")
+@pytest.mark.parametrize("test_case", test_data_products)
+#@pytest.mark.skip(reason="This test is currently inactive")
 def test_show_products_on_homepage(driver, config, test_case):
     allure_log(f"Test: Show products on homepage started")
 
@@ -42,8 +42,8 @@ def test_show_products_on_homepage(driver, config, test_case):
 
 
 #Put a product in a shopping cart, then buy it
-#@pytest.mark.parametrize("test_case", cart_data_products)
-@pytest.mark.skip(reason="This test is currently inactive")
+@pytest.mark.parametrize("test_case", cart_data_products)
+#@pytest.mark.skip(reason="This test is currently inactive")
 def test_buy_products(driver, config, test_case):
     allure_log(f" Test: buy_products")
     
@@ -91,5 +91,3 @@ def test_buy_products(driver, config, test_case):
     #Check for the greeting message
     assert thank_you_page.getGreetingMessage() == "Thank you for your purchase!"
     thank_you_page.clickOk()
-
-    time.sleep(5)

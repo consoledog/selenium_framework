@@ -5,11 +5,11 @@ from pages.base_page import BasePage
 from data_classes.product import Product
 from typing import List
 from utils.logger import allure_log
-import time
 
 class HomePage(BasePage):
     PRODUCT_LIST = (By.ID, "tbodyid")  # The container
-    PRODUCT_ITEM = (By.CSS_SELECTOR, "div.col-lg-4.col-md-6.mb-4.card")# Single product item
+    PRODUCT_ITEM = (By.CSS_SELECTOR, "div.col-lg-4.col-md-6.mb-4 > div.card") # Single product item
+    CARD_ANCHOR =  (By.CSS_SELECTOR, "h4.card-title a")                       # The clickable <a> inside each product
 
     #Get the list of products -> List[Product]
     def get_all_products(self) -> List[Product]:
@@ -44,8 +44,9 @@ class HomePage(BasePage):
 
         # Wait for at least one product to load inside tbodyid
         WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located(self.PRODUCT_ITEM)
+            EC.visibility_of_element_located(self.PRODUCT_ITEM)
         )
+
         product_list_element = self.driver.find_element(*self.PRODUCT_LIST)
         products = product_list_element.find_elements(*self.PRODUCT_ITEM)
         
@@ -54,8 +55,16 @@ class HomePage(BasePage):
         
         #Find the product title, and click on it
         for product in products:
-            title = product.find_element(By.CSS_SELECTOR, "h4.card-title a").text
-            if(title.lower() == product_title.lower()):
-                product.click()
+            link_el = product.find_element(*self.CARD_ANCHOR)
+            title_text = link_el.text.strip()
+
+            if(title_text.lower() == product_title.lower()):
+                
+                self.driver.execute_script("arguments[0].scrollIntoView(true);", link_el)
+                
+                WebDriverWait(self.driver, 10).until(
+                    EC.element_to_be_clickable(self.CARD_ANCHOR)
+                )
+                link_el.click()
                 break
         

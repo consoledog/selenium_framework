@@ -5,7 +5,7 @@ import os
 from datetime import datetime
 import glob
 
-@pytest.fixture(params=["chrome"], scope="function") #params=["chrome", "firefox"]]
+@pytest.fixture(params=["chrome", "firefox"], scope="function") #params=["chrome", "firefox"]]
 def driver(request):
     driver = get_driver(request.param)
     yield driver

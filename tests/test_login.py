@@ -9,6 +9,7 @@ test_data_valid = load_test_data('test_data/login_test_data_valid.json')
 test_data_invalid = load_test_data('test_data/login_test_data_invalid.json')
 
 #Testing login with valid credentials
+#@pytest.mark.skip(reason="This test is currently inactive")
 @pytest.mark.parametrize("credentials", test_data_valid)
 def test_valid_login(driver, config, credentials):
     username = credentials["username"]
@@ -26,6 +27,7 @@ def test_valid_login(driver, config, credentials):
     assert login_page.get_text(login_page.WELCOME) == f"Welcome {username}"
 
 #Testing login with invalid credentials
+#@pytest.mark.skip(reason="This test is currently inactive")
 @pytest.mark.parametrize("credentials", test_data_invalid)
 def test_invalid_password_login(driver, config, credentials):
     username = credentials["username"]
@@ -35,7 +37,7 @@ def test_invalid_password_login(driver, config, credentials):
     driver.get(config["base_url"])
     allure_log("Navigated to login page")
 
-    login_page = LoginPage(driver)  
+    login_page = LoginPage(driver)
     login_page.login(username, password)
     allure_log("Clicked Login Button")
     
